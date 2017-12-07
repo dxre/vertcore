@@ -4,15 +4,15 @@ Requires=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/usr/opt/bitcore
-ExecStart=/usr/opt/bitcore/bin/bitcored
+WorkingDirectory=/usr/opt/vertcore
+ExecStart=/usr/opt/vertcore/bin/vertcored
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=on-failure
 RestartSec=15
-User=bitcore
-ExecStartPre=/bin/mkdir -p /run/bitcore
-ExecStartPre=/bin/chown bitcore:bitcore /run/bitcore
-ExecStartPre=/bin/chmod 755 /run/bitcore
+User=vertcore
+ExecStartPre=/bin/mkdir -p /run/vertcore
+ExecStartPre=/bin/chown vertcore:vertcore /run/vertcore
+ExecStartPre=/bin/chmod 755 /run/vertcore
 PermissionsStartOnly=true
 TimeoutStopSec=300
 

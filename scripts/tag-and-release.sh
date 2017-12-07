@@ -5,8 +5,8 @@ set -e
 
 insightApiDir="${HOME}/source/insight-api"
 insightUIDir="${HOME}/source/insight-ui"
-bitcoreDir="${HOME}/source/bitcore"
-bitcoreNodeDir="${HOME}/source/bitcore-node"
+vertcoreDir="${HOME}/source/vertcore"
+vertcoreNodeDir="${HOME}/source/vertcore-node"
 
 ###########################################################
 
@@ -17,7 +17,7 @@ bump_version () {
 }
 
 set_deps () {
-  sed -i '' -e "s/\"bitcore-node\"\: .*$/\"bitcore-node\"\: \"${shortTag}\",/g" package.json
+  sed -i '' -e "s/\"vertcore-node\"\: .*$/\"vertcore-node\"\: \"${shortTag}\",/g" package.json
   sed -i '' -e "s/\"insight-api\"\: .*$/\"insight-api\"\: \"${shortTag}\",/g" package.json
   sed -i '' -e "s/\"insight-ui\"\: .*$/\"insight-ui\"\: \"bitpay\/insight\#${tag}\"/g" package.json
 }
@@ -33,13 +33,13 @@ fi
 
 
 #############################################
-# bitcore-node
+# vertcore-node
 #############################################
-function bitcoreNode() {
+function vertcoreNode() {
   echo ""
-  echo "Starting with bitcore-node..."
+  echo "Starting with vertcore-node..."
   sleep 2
-  pushd "${bitcoreNodeDir}"
+  pushd "${vertcoreNodeDir}"
 
   sudo rm -fr node_modules
   bump_version
@@ -58,7 +58,7 @@ function bitcoreNode() {
   fi
 
   echo ""
-  echo "Committing changes for bitcore-node..."
+  echo "Committing changes for vertcore-node..."
   sleep 2
   git commit -S
 
@@ -183,13 +183,13 @@ function insightUi() {
 }
 
 #############################################
-# bitcore
+# vertcore
 #############################################
-function bitcore() {
+function vertcore() {
   echo ""
-  echo "Releasing bitcore..."
+  echo "Releasing vertcore..."
   sleep 2
-  pushd "${bitcoreDir}"
+  pushd "${vertcoreDir}"
 
   sudo rm -fr node_modules
   bump_version
@@ -210,7 +210,7 @@ function bitcore() {
   fi
 
   echo ""
-  echo "Committing changes for bitcore..."
+  echo "Committing changes for vertcore..."
   sleep 2
   git commit -S
 
@@ -243,10 +243,10 @@ echo "Assuming projects at ${HOME}/source..."
 
 releases="${2}"
 if [ -z "${releases}" ]; then
-  bitcoreNode
+  vertcoreNode
   insightApi
   insightUi
-  bitcore
+  vertcore
 else
   eval "${releases}"
 fi
